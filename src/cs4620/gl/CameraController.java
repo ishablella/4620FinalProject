@@ -95,19 +95,30 @@ public class CameraController {
 	protected void rotate(Matrix4 parentWorld, Matrix4 transformation, Vector3 rotation) {
 		// TODO#A3 SOLUTION START
 		
-		rotation = rotation.clone().mul((float)(Math.PI / 180.0));
-		Matrix4 mRot = Matrix4.createRotationX(rotation.x);
-		mRot.mulAfter(Matrix4.createRotationY(rotation.y));
-		mRot.mulAfter(Matrix4.createRotationZ(rotation.z));
-
-		if (orbitMode) {
-			Vector3 rotCenter = new Vector3(0,0,0);
-			transformation.clone().invert().mulPos(rotCenter);
-			parentWorld.clone().invert().mulPos(rotCenter);
-			mRot.mulBefore(Matrix4.createTranslation(rotCenter.clone().negate()));
-			mRot.mulAfter(Matrix4.createTranslation(rotCenter));
-		}
-		transformation.mulBefore(mRot);
+		rotation = (rotation).mul((float)(Math.PI / 180.0));
+		//put bounds on how far the camera rotates
+//		Matrix4 mRot =  new Matrix4();
+//		if (Math.abs(mainDirection.normalize().y - camera.mViewProjection.getZ().normalize().y) <= .5){
+//		mRot = Matrix4.createRotationX(rotation.x);
+//		System.out.println(mainDirection.normalize() +" "+ camera.mViewProjection.getZ().normalize());
+//		}
+		Matrix4 mRotx = new Matrix4();
+		mRotx = Matrix4.createRotationX(rotation.x);
+		Matrix4 mRoty = Matrix4.createRotationY(rotation.y);
+		mRoty.mulBefore(Matrix4.createTranslation(camera.mWorldTransform.getTrans().negate()));
+		mRoty.mulAfter(Matrix4.createTranslation(camera.mWorldTransform.getTrans()));
+		//mRot.mulAfter(Matrix4.createRotationZ(rotation.z));
+//		if (orbitMode) {
+//			Vector3 rotCenter = new Vector3(0,0,0);
+//			transformation.clone().invert().mulPos(rotCenter);
+//			parentWorld.clone().invert().mulPos(rotCenter);
+//			mRot.mulBefore(Matrix4.createTranslation(rotCenter.clone().negate()));
+//			mRot.mulAfter(Matrix4.createTranslation(rotCenter));
+//		}
+		
+		transformation.mulBefore(mRotx);
+		
+		transformation.mulAfter(mRoty);
 		
 		// SOLUTION END
 	}
