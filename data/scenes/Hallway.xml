@@ -26,59 +26,8 @@
             <file>data/textures/Envir/NissiBeach/</file>
         </data>
     </cubemap>
-    
-	<material>
-		<name>Mirror</name>
-		<data>
-			<type>ReflectionMap</type>
-		</data>
-	</material>
-	    
- 	<texture>
-		<name>Fire</name>
-		<data>
-			<file>data/textures/fire.jpg</file>
-		</data>
-	</texture>
 
-  <texture>
-    <name>Noise</name>
-    <data>
-      <file>data/textures/noise.jpg</file>
-    </data>
-  </texture>
-	
-	<material>
-		<name>FireMat</name>
-		<data>
-			<type>Fire</type>
-			<diffuse>
-				<texture>Fire</texture>
-			</diffuse>
-      <normal>
-        <texture>Noise</texture>
-      </normal>
-		</data>
-	</material> 
-  	<mesh>
-		<name>Teapot.obj</name>
-		<data>
-			<file>data/meshes/teapot.obj</file>
-		</data>
-	</mesh>
-	<mesh>
-		<name>its_a_box.obj</name>
-		<data>
-			<file>data/meshes/its_a_box.obj</file>
-		</data>
-	</mesh>
-  	<mesh>
-		<name>Test.obj</name>
-		<data>
-			<file>data/meshes/test.obj</file>
-			
-		</data>
-	</mesh>
+
 	
     <mesh>
         <name>SkyBox.obj</name>
@@ -88,10 +37,10 @@
     </mesh>	
     
 	<object>
-		<name>Test</name>
+		<name>Floor1</name>
 		<data>
-			<mesh>Test.obj</mesh>
-			<material>FireMat</material>
+			<mesh>Floor1.obj</mesh>
+			<material>Bark</material>
 		</data>
 	</object>	
 	
@@ -102,13 +51,17 @@
         </data>
     </material>
     
-    <object>
-        <name>SkyBox</name>
-        <data>
-            <mesh>SkyBox.obj</mesh>
-            <material>EnvironmentLight</material>
-        </data>
-    </object>
+
+  	<mesh>
+		<name>Floor1.obj</name>
+		<data>
+			<file>data/meshes/Floor1.obj</file>
+			
+		</data>
+	</mesh>
+
+
+
     	
     <object>
         <name>Camera</name>
