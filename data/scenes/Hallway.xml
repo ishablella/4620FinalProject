@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<scene>
+  <material>
+    <name>Bark</name>
+    <data>
+      <type>Lambertian</type>
+      <diffuse>
+        <color>209 147 124 255</color>
+      </diffuse>
+    </data>
+  </material>
+  
+  <material>
+    <name>Leaves</name>
+    <data>
+      <type>Lambertian</type>
+      <diffuse>
+        <color>10 230 100 255</color>
+      </diffuse>
+    </data>
+  </material>
+  
+      <cubemap>
+        <name>EnvMap</name>
+        <data>
+            <file>data/textures/Envir/NissiBeach/</file>
+        </data>
+    </cubemap>
+    
+	<material>
+		<name>Mirror</name>
+		<data>
+			<type>ReflectionMap</type>
+		</data>
+	</material>
+	    
+ 	<texture>
+		<name>Fire</name>
+		<data>
+			<file>data/textures/fire.jpg</file>
+		</data>
+	</texture>
+
+  <texture>
+    <name>Noise</name>
+    <data>
+      <file>data/textures/noise.jpg</file>
+    </data>
+  </texture>
+	
+	<material>
+		<name>FireMat</name>
+		<data>
+			<type>Fire</type>
+			<diffuse>
+				<texture>Fire</texture>
+			</diffuse>
+      <normal>
+        <texture>Noise</texture>
+      </normal>
+		</data>
+	</material> 
+  	<mesh>
+		<name>Teapot.obj</name>
+		<data>
+			<file>data/meshes/teapot.obj</file>
+		</data>
+	</mesh>
+	<mesh>
+		<name>its_a_box.obj</name>
+		<data>
+			<file>data/meshes/its_a_box.obj</file>
+		</data>
+	</mesh>
+  	<mesh>
+		<name>Test.obj</name>
+		<data>
+			<file>data/meshes/test.obj</file>
+			
+		</data>
+	</mesh>
+	
+    <mesh>
+        <name>SkyBox.obj</name>
+        <data>
+            <file>data/meshes/skybox.obj</file>
+        </data>
+    </mesh>	
+    
+	<object>
+		<name>Test</name>
+		<data>
+			<mesh>Test.obj</mesh>
+			<material>FireMat</material>
+		</data>
+	</object>	
+	
+	    <material>
+        <name>EnvironmentLight</name>
+        <data>
+            <type>Environment</type>
+        </data>
+    </material>
+    
+    <object>
+        <name>SkyBox</name>
+        <data>
+            <mesh>SkyBox.obj</mesh>
+            <material>EnvironmentLight</material>
+        </data>
+    </object>
+    	
+    <object>
+        <name>Camera</name>
+        <data type="SceneCamera">
+            <zPlanes>0.02 1000.0</zPlanes>
+            <perspective>0.01 0.01</perspective>
+            <exposure>1</exposure>
+            <rotation>0 90 0</rotation>
+            <translation>5 1 9</translation>
+        </data>
+    </object>
+</scene>
