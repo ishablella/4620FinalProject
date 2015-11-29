@@ -10,6 +10,7 @@ import cs4620.common.SceneCamera;
 import cs4620.common.SceneLight;
 import cs4620.common.SceneObject;
 import cs4620.common.Texture;
+import egl.math.Matrix4;
 import egl.math.Vector2;
 
 /**
@@ -120,7 +121,25 @@ public class RenderTreeBuilder {
 	 */
 	public static void rippleTransformations(RenderEnvironment env) {
 		// TODO#A3 SOLUTION START
+		Matrix4 id = new Matrix4();
+		id.setIdentity();
+		ripple(env.root,id);
+		
+		for (int i = 0; i < env.cameras.size(); i++){
+			RenderCamera c = env.cameras.get(i);
+			c.updateCameraMatrix(env.viewportSize);
 		}
+	}
+	
+	private static void ripple(RenderObject node, Matrix4 ptrans) {
+		node.mWorldTransform.set(node.sceneObject.transformation.clone().mulAfter(ptrans));
+		node.mWorldTransformIT.set(node.mWorldTransform.getAxes().transpose().invert());
+		if (node.children.size() > 0) {
+			for (int i = 0; i < node.children.size(); i++) {
+				ripple(node.children.get(i),node.mWorldTransform);
+			}
+		}
+	}
 	// SOLUTION END
 	
 	/**

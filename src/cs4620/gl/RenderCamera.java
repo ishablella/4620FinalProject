@@ -57,16 +57,33 @@ public class RenderCamera extends RenderObject {
 		// Look through the methods in Matrix4 before you type in any matrices from the book or the OpenGL specification.
 		
 		// TODO#A3 SOLUTION START
+		// TODO#A3 SOLUTION START
 
 		// Create viewing matrix
+		mView.set(mWorldTransform.clone().invert());
 		
 		// Correct Image Aspect Ratio By Enlarging Image
-		
+		double aratio = viewportSize.x/viewportSize.y;
+		double imgx = sceneCamera.imageSize.x;
+		double imgy = sceneCamera.imageSize.y;
+		double iratio = imgx/imgy;
+		if (iratio < aratio) {
+			imgx = aratio*imgy;
+//			sceneCamera.imageSize.x = aratio*imgy;;
+		} else {
+			imgy = imgx/aratio;
+//			sceneCamera.imageSize.y = imgx/aratio;
+		}
 
 		// Create Projection
-		
+		if (sceneCamera.isPerspective) {
+			mProj.set(Matrix4.createPerspective((float)imgx,(float)imgy,(float)sceneCamera.zPlanes.x,(float)sceneCamera.zPlanes.y));
+		} else {
+			mProj.set(Matrix4.createOrthographic((float)sceneCamera.imageSize.x,(float)sceneCamera.imageSize.y,(float)sceneCamera.zPlanes.x,(float)sceneCamera.zPlanes.y));
+		}
 		
 		// Set the view projection matrix using the view and projection matrices
+		mViewProjection.set(mProj.clone().mulBefore(mView));
 	
 		// SOLUTION END
 	}	
