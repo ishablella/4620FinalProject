@@ -9,17 +9,86 @@
       </diffuse>
     </data>
   </material>
-  
+
+  <texture>
+    <name>Noise</name>
+    <data>
+      <file>data/textures/noise.jpg</file>
+    </data>
+  </texture>
+	
+	<material>
+		<name>FireMat</name>
+		<data>
+			<type>Fire</type>
+			<diffuse>
+				<texture>Fire</texture>
+			</diffuse>
+      <normal>
+        <texture>Noise</texture>
+      </normal>
+		</data>
+	</material>  
   <material>
     <name>Leaves</name>
     <data>
-      <type>Lambertian</type>
+      <type>Lambertain</type>
       <diffuse>
         <color>10 230 100 255</color>
       </diffuse>
+      <shininess>50</shininess>
     </data>
   </material>
-  
+	<material>
+		<name>EarthMaterial</name>
+		<data>
+			<type>Phong</type>
+			<diffuse>
+				<texture>Carpet</texture>
+			</diffuse>
+			<shininess>10</shininess>
+		</data>
+	</material>
+	<material>
+		<name>WallMat</name>
+		<data>
+			<type>Phong</type>
+			<diffuse>
+				<color> 100 100 100 100</color>
+			</diffuse>
+			<shininess>50</shininess>
+		</data>
+	</material>	  
+  	<texture>
+		<name>Carpet</name>
+		<data>
+			<file>data/textures/carpet-texture.jpg</file>
+		</data>
+	</texture>
+  	<texture>
+		<name>Fire</name>
+		<data>
+			<file>data/textures/fire.jpg</file>
+		</data>
+	</texture>
+	<material>
+		<name>Fire</name>
+		<data>
+			<type>Ambient</type>
+			<diffuse>
+				<texture>Fire</texture>
+			</diffuse>
+		</data>
+	</material>
+	<material>
+		<name>Ambient</name>
+		<data>
+			<type>Ambient</type>
+			<diffuse>
+				<color>255 255 255 255</color>
+			</diffuse>
+		</data>
+	</material>		
       <cubemap>
         <name>EnvMap</name>
         <data>
@@ -40,10 +109,171 @@
 		<name>Floor1</name>
 		<data>
 			<mesh>Floor1.obj</mesh>
-			<material>Bark</material>
+			<material>EarthMaterial</material>
+		</data>
+	</object>
+	<object>
+		<name>Wall1L</name>
+		<data>
+			<mesh>Wall1L.obj</mesh>
+			<material>WallMat</material>
+		</data>
+	</object>
+	<object>
+		<name>Wall1R</name>
+		<data>
+			<mesh>Wall1R.obj</mesh>
+			<material>WallMat</material>
+		</data>
+	</object>		
+	<object>
+		<name>Floor2</name>
+		<data>
+			<mesh>Floor2.obj</mesh>
+			<material>EarthMaterial</material>
+		</data>
+	</object>
+	<object>
+		<name>Wall2R</name>
+		<data>
+			<mesh>Wall2R.obj</mesh>
+			<material>WallMat</material>
+		</data>
+	</object>
+	<object>
+		<name>Wall2L</name>
+		<data>
+			<mesh>Wall2L.obj</mesh>
+			<material>WallMat</material>
+		</data>
+	</object>
+	
+	<object>
+		<name>Floor3</name>
+		<data>
+			<mesh>Floor3.obj</mesh>
+			<material>Fire</material>
+		</data>
+	</object>
+	<object>
+		<name>Wall3L1</name>
+		<data>
+			<mesh>Wall3L1.obj</mesh>
+			<material>FireMat</material>
+		</data>
+	</object>
+	<object>
+		<name>Wall3L2</name>
+		<data>
+			<mesh>Wall3L2.obj</mesh>
+			<material>FireMat</material>
+		</data>
+	</object>
+	<object>
+		<name>Wall3L3</name>
+		<data>
+			<mesh>Wall3L3.obj</mesh>
+			<material>FireMat</material>
+		</data>
+	</object>
+	<object>
+		<name>Wall3R1</name>
+		<data>
+			<mesh>Wall3R1.obj</mesh>
+			<material>FireMat</material>
+		</data>
+	</object>
+	<object>
+		<name>Wall3R2</name>
+		<data>
+			<mesh>Wall3R2.obj</mesh>
+			<material>FireMat</material>
+		</data>
+	</object>		
+	<object>
+		<name>Floor4</name>
+		<data>
+			<mesh>Floor4.obj</mesh>
+			<material>EarthMaterial</material>
+		</data>
+	</object>
+		<object>
+		<name>Wall4R1</name>
+		<data>
+			<mesh>Wall4R1.obj</mesh>
+			<material>WallMat</material>
+		</data>
+	</object>
+	<object>
+		<name>Wall4L1</name>
+		<data>
+			<mesh>Wall4L1.obj</mesh>
+			<material>WallMat</material>
+		</data>
+	</object>
+		<object>
+		<name>Floor5</name>
+		<data>
+			<mesh>Floor5.obj</mesh>
+			<material>EarthMaterial</material>
+		</data>
+	</object>
+	<object>
+		<name>Wall5L1</name>
+		<data>
+			<mesh>Wall5L1.obj</mesh>
+			<material>WallMat</material>
+		</data>
+	</object>
+	<object>
+		<name>Wall5L2</name>
+		<data>
+			<mesh>Wall5L2.obj</mesh>
+			<material>WallMat</material>
+		</data>
+	</object>
+	<object>
+		<name>Wall5R1</name>
+		<data>
+			<mesh>Wall5R1.obj</mesh>
+			<material>WallMat</material>
+		</data>
+	</object>
+	<object>
+		<name>Wall5R2</name>
+		<data>
+			<mesh>Wall5R2.obj</mesh>
+			<material>WallMat</material>
+		</data>
+	</object>
+		<object>
+		<name>Floor6</name>
+		<data>
+			<mesh>Floor6.obj</mesh>
+			<material>EarthMaterial</material>
+		</data>
+	</object>
+	<object>
+		<name>Wall6L1</name>
+		<data>
+			<mesh>Wall6L1.obj</mesh>
+			<material>WallMat</material>
 		</data>
 	</object>	
-	
+	<object>
+		<name>Wall6R1</name>
+		<data>
+			<mesh>Wall6R1.obj</mesh>
+			<material>WallMat</material>
+		</data>
+	</object>
+	<object>
+		<name>WallEnd</name>
+		<data>
+			<mesh>WallEnd.obj</mesh>
+			<material>WallMat</material>
+		</data>
+	</object>
 	    <material>
         <name>EnvironmentLight</name>
         <data>
@@ -55,14 +285,189 @@
   	<mesh>
 		<name>Floor1.obj</name>
 		<data>
-			<file>data/meshes/Floor1.obj</file>
+			<file>data/meshes/Floor1.obj</file>		
+		</data>
+	</mesh>
+	<mesh>
+		<name>Wall1R.obj</name>
+		<data>
+			<file>data/meshes/Wall1R.obj</file>		
+		</data>
+	</mesh>
+	<mesh>
+		<name>Wall1L.obj</name>
+		<data>
+			<file>data/meshes/Wall1L.obj</file>		
+		</data>
+	</mesh>
+	  	<mesh>
+		<name>Floor2.obj</name>
+		<data>
+			<file>data/meshes/Floor2.obj</file>
 			
 		</data>
 	</mesh>
+	<mesh>
+		<name>Wall2R.obj</name>
+		<data>
+			<file>data/meshes/Wall2R.obj</file>
+			
+		</data>
+	</mesh>
+	<mesh>
+		<name>Wall2L.obj</name>
+		<data>
+			<file>data/meshes/Wall2L.obj</file>
+			
+		</data>
+	</mesh>
+	  	<mesh>
+		<name>Floor3.obj</name>
+		<data>
+			<file>data/meshes/Floor3.obj</file>
+			
+		</data>
+	</mesh>
+	<mesh>
+		<name>Wall3L1.obj</name>
+		<data>
+			<file>data/meshes/Wall3L1.obj</file>
+			
+		</data>
+	</mesh>
+	<mesh>
+		<name>Wall3L2.obj</name>
+		<data>
+			<file>data/meshes/Wall3L2.obj</file>
+			
+		</data>
+	</mesh>
+	<mesh>
+		<name>Wall3L3.obj</name>
+		<data>
+			<file>data/meshes/Wall3L3.obj</file>
+			
+		</data>
+	</mesh>
+	<mesh>
+		<name>Wall3R1.obj</name>
+		<data>
+			<file>data/meshes/Wall3R1.obj</file>
+			
+		</data>
+	</mesh>
+	<mesh>
+		<name>Wall3R2.obj</name>
+		<data>
+			<file>data/meshes/Wall3R2.obj</file>
+			
+		</data>
+	</mesh>
+	<mesh>
+		<name>Floor4.obj</name>
+		<data>
+			<file>data/meshes/Floor4.obj</file>
+			
+		</data>
+	</mesh>
+	<mesh>
+		<name>Wall4R1.obj</name>
+		<data>
+			<file>data/meshes/Wall4R1.obj</file>
+			
+		</data>
+	</mesh>
+	<mesh>
+		<name>Wall4L1.obj</name>
+		<data>
+			<file>data/meshes/Wall4L1.obj</file>
+			
+		</data>
+	</mesh>
+	  	<mesh>
+		<name>Floor5.obj</name>
+		<data>
+			<file>data/meshes/Floor5.obj</file>
+			
+		</data>
+	</mesh>
+	<mesh>
+		<name>Wall5R1.obj</name>
+		<data>
+			<file>data/meshes/Wall5R1.obj</file>
+			
+		</data>
+	</mesh>
+	<mesh>
+		<name>Wall5R2.obj</name>
+		<data>
+			<file>data/meshes/Wall5R2.obj</file>
+			
+		</data>
+	</mesh>
+	<mesh>
+		<name>Wall5L1.obj</name>
+		<data>
+			<file>data/meshes/Wall5L1.obj</file>
+			
+		</data>
+	</mesh>
+	<mesh>
+		<name>Wall5L2.obj</name>
+		<data>
+			<file>data/meshes/Wall5L2.obj</file>
+			
+		</data>
+	</mesh>
+  	<mesh>
+		<name>Floor6.obj</name>
+		<data>
+			<file>data/meshes/Floor6.obj</file>
+			
+		</data>
+	</mesh>
+  	<mesh>
+		<name>Wall6R1.obj</name>
+		<data>
+			<file>data/meshes/Wall6R1.obj</file>
+		</data>
+	</mesh>
+  	<mesh>
+		<name>Wall6L1.obj</name>
+		<data>
+			<file>data/meshes/Wall6L1.obj</file>
+		</data>
+	</mesh>
+  	<mesh>
+		<name>WallEnd.obj</name>
+		<data>
+			<file>data/meshes/WallEnd.obj</file>
+		</data>
+	</mesh>
+	<object>
+		<name>LightObj1</name>
+		<data>
+			<mesh>Sphere</mesh>
+			<scale>0.1 0.1 0.1</scale>
+			<translation>6 2 7</translation>
 
-
-
-    	
+			<material>Ambient</material>
+		</data>
+	</object>
+	<object>
+		<name>Light1</name>
+		<data type="SceneLight">
+			<parent>LightObj1</parent>
+			<intensity>1 1 1</intensity>
+		</data>
+	</object>
+	<object>
+		<name>AmbientLight</name>
+		<data type="SceneLight">
+			<intensity>0.05 0.05 0.05</intensity>
+			<isAmbient>true</isAmbient>
+		</data>
+	</object>    		
     <object>
         <name>Camera</name>
         <data type="SceneCamera">
@@ -70,7 +475,7 @@
             <perspective>0.01 0.01</perspective>
             <exposure>1</exposure>
             <rotation>0 90 0</rotation>
-            <translation>5 1 9</translation>
+            <translation>9 0.5 7</translation>
         </data>
     </object>
 </scene>
