@@ -28,6 +28,22 @@
         <texture>Noise</texture>
       </normal>
 		</data>
+	</material>
+	<texture>
+		<name>Exit</name>
+		<data>
+			<file>data/textures/Exit.png</file>
+		</data>
+	</texture>
+	
+	<material>
+		<name>ExitSign</name>
+		<data>
+			<type>Ambient</type>
+			<diffuse>
+				<texture>Exit</texture>
+			</diffuse>
+		</data>
 	</material>  
   <material>
     <name>Leaves</name>
@@ -50,11 +66,31 @@
 		</data>
 	</material>
 	<material>
+		<name>WallMat2</name>
+		<data>
+			<type>Phong</type>
+			<diffuse>
+				<texture>Wall2</texture>
+			</diffuse>
+			<shininess>2</shininess>
+		</data>
+	</material>
+	<material>
 		<name>WallMat</name>
 		<data>
 			<type>Phong</type>
 			<diffuse>
 				<color> 100 100 100 100</color>
+			</diffuse>
+			<shininess>50</shininess>
+		</data>
+	</material>	
+	<material>
+		<name>LampMat</name>
+		<data>
+			<type>Phong</type>
+			<diffuse>
+				<color>209 147 124 100</color>
 			</diffuse>
 			<shininess>50</shininess>
 		</data>
@@ -66,9 +102,15 @@
 		</data>
 	</texture>
   	<texture>
+		<name>Wall2</name>
+		<data>
+			<file>data/textures/Wall.png</file>
+		</data>
+	</texture>
+  	<texture>
 		<name>Fire</name>
 		<data>
-			<file>data/textures/fire.jpg</file>
+			<file>data/textures/Fire.jpg</file>
 		</data>
 	</texture>
 	<material>
@@ -88,7 +130,22 @@
 				<color>255 255 255 255</color>
 			</diffuse>
 		</data>
-	</material>		
+	</material>
+	<material>
+		<name>AmbientRed</name>
+		<data>
+			<type>Ambient</type>
+			<diffuse>
+				<color>255 0 0 100</color>
+			</diffuse>
+		</data>
+	</material>
+	    <material>
+        <name>EnvironmentLight</name>
+        <data>
+            <type>Environment</type>
+        </data>
+    </material>		
       <cubemap>
         <name>EnvMap</name>
         <data>
@@ -159,35 +216,35 @@
 		<name>Wall3L1</name>
 		<data>
 			<mesh>Wall3L1.obj</mesh>
-			<material>FireMat</material>
+			<material>WallMat</material>
 		</data>
 	</object>
 	<object>
 		<name>Wall3L2</name>
 		<data>
 			<mesh>Wall3L2.obj</mesh>
-			<material>FireMat</material>
+			<material>WallMat</material>
 		</data>
 	</object>
 	<object>
 		<name>Wall3L3</name>
 		<data>
 			<mesh>Wall3L3.obj</mesh>
-			<material>FireMat</material>
+			<material>WallMat</material>
 		</data>
 	</object>
 	<object>
 		<name>Wall3R1</name>
 		<data>
 			<mesh>Wall3R1.obj</mesh>
-			<material>FireMat</material>
+			<material>WallMat</material>
 		</data>
 	</object>
 	<object>
 		<name>Wall3R2</name>
 		<data>
 			<mesh>Wall3R2.obj</mesh>
-			<material>FireMat</material>
+			<material>WallMat</material>
 		</data>
 	</object>		
 	<object>
@@ -201,14 +258,14 @@
 		<name>Wall4R1</name>
 		<data>
 			<mesh>Wall4R1.obj</mesh>
-			<material>WallMat</material>
+			<material>WallMat2</material>
 		</data>
 	</object>
 	<object>
 		<name>Wall4L1</name>
 		<data>
 			<mesh>Wall4L1.obj</mesh>
-			<material>WallMat</material>
+			<material>WallMat2</material>
 		</data>
 	</object>
 		<object>
@@ -222,28 +279,28 @@
 		<name>Wall5L1</name>
 		<data>
 			<mesh>Wall5L1.obj</mesh>
-			<material>WallMat</material>
+			<material>WallMat2</material>
 		</data>
 	</object>
 	<object>
 		<name>Wall5L2</name>
 		<data>
 			<mesh>Wall5L2.obj</mesh>
-			<material>WallMat</material>
+			<material>WallMat2</material>
 		</data>
 	</object>
 	<object>
 		<name>Wall5R1</name>
 		<data>
 			<mesh>Wall5R1.obj</mesh>
-			<material>WallMat</material>
+			<material>WallMat2</material>
 		</data>
 	</object>
 	<object>
 		<name>Wall5R2</name>
 		<data>
 			<mesh>Wall5R2.obj</mesh>
-			<material>WallMat</material>
+			<material>WallMat2</material>
 		</data>
 	</object>
 		<object>
@@ -257,14 +314,14 @@
 		<name>Wall6L1</name>
 		<data>
 			<mesh>Wall6L1.obj</mesh>
-			<material>WallMat</material>
+			<material>WallMat2</material>
 		</data>
 	</object>	
 	<object>
 		<name>Wall6R1</name>
 		<data>
 			<mesh>Wall6R1.obj</mesh>
-			<material>WallMat</material>
+			<material>WallMat2</material>
 		</data>
 	</object>
 	<object>
@@ -274,12 +331,47 @@
 			<material>WallMat</material>
 		</data>
 	</object>
-	    <material>
-        <name>EnvironmentLight</name>
-        <data>
-            <type>Environment</type>
-        </data>
-    </material>
+	<object>
+		<name>ExitSign</name>
+		<data>
+			<mesh>WallEnd.obj</mesh>
+			<translation>3 4 4.9 </translation>
+			<scale> 0.5 0.3 0.5</scale>
+			<material>ExitSign</material>
+		</data>
+	</object>
+	<object>
+		<name>Lamp</name>
+		<data>
+			<mesh>Lamp.obj</mesh>
+			<material>LampMat</material>
+		</data>
+	</object>
+	<object>
+		<name>LampShade</name>
+		<data>
+			<mesh>LampShade.obj</mesh>
+			<material>Ambient</material>
+			<translation>0 -0.1 0 </translation>
+		</data>
+	</object>
+	<object>
+		<name>Bench1</name>
+		<data>
+			<mesh>Bench1.obj</mesh>
+			<material>WallMat</material>
+			
+		</data>
+	</object>
+	<object>
+		<name>Bench2</name>
+		<data>
+			<mesh>Bench1.obj</mesh>
+			<material>WallMat</material>
+			<translation>8.21 0 -2.631</translation>
+		</data>
+	</object>
+
     
 
   	<mesh>
@@ -444,8 +536,32 @@
 			<file>data/meshes/WallEnd.obj</file>
 		</data>
 	</mesh>
+  	<mesh>
+		<name>Lamp.obj</name>
+		<data>
+			<file>data/meshes/Lamp.obj</file>
+		</data>
+	</mesh>
+  	<mesh>
+		<name>LampShade.obj</name>
+		<data>
+			<file>data/meshes/LampShade.obj</file>
+		</data>
+	</mesh>
+  	<mesh>
+		<name>Bench1.obj</name>
+		<data>
+			<file>data/meshes/bench_moved.obj</file>
+		</data>
+	</mesh>	
+	
+	
+	
+	
+	
+	
 	<object>
-		<name>LightObj1</name>
+		<name>Lamp1</name>
 		<data>
 			<mesh>Sphere</mesh>
 			<scale>0.1 0.1 0.1</scale>
@@ -455,10 +571,63 @@
 		</data>
 	</object>
 	<object>
+		<name>Lamp2</name>
+		<data>
+			<mesh>Sphere</mesh>
+			<scale>0.1 0.1 0.1</scale>
+			<translation>-6.328 1.309 7.403</translation>
+
+			<material>Ambient</material>
+		</data>
+	</object>
+	<object>
+		<name>Lamp3</name>
+		<data>
+			<mesh>Cube</mesh>
+			<scale>0.1 0.1 0.5</scale>
+			<translation>6 2 -7</translation>
+
+			<material>AmbientRed</material>
+		</data>
+	</object>
+	<object>
+		<name>Lamp4</name>
+		<data>
+			<mesh>Sphere</mesh>
+			<scale>0.1 0.1 0.1</scale>
+			<translation>2.5 1 -1.5</translation>
+
+			<material>Ambient</material>
+		</data>
+	</object>
+	<object>
 		<name>Light1</name>
 		<data type="SceneLight">
-			<parent>LightObj1</parent>
-			<intensity>1 1 1</intensity>
+			<parent>Lamp1</parent>
+			<intensity>0 0 0</intensity>
+		</data>
+	</object>
+	<object>
+		<name>Light2</name>
+		<data type="SceneLight">
+			<parent>Lamp2</parent>
+			<intensity>0.1 0.1 0.1</intensity>
+		</data>
+	</object>
+	<object>
+		<name>Light3</name>
+		<data type="SceneLight">
+			<parent>Lamp3</parent>
+			<translation>-7 0 0</translation>
+			<intensity>.5 0 0</intensity>
+		</data>
+	</object>
+	<object>
+		<name>Light4</name>
+		<data type="SceneLight">
+			<parent>Lamp4</parent>
+			<translation>0 0 0</translation>
+			<intensity>.7 .7 .7</intensity>
 		</data>
 	</object>
 	<object>
