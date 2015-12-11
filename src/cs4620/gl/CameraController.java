@@ -13,8 +13,11 @@ public class CameraController {
 	public RenderCamera camera;
 	protected final RenderEnvironment rEnv;
 	
-	protected boolean prevFrameButtonDown = false;
-	protected int prevMouseX, prevMouseY;
+	protected boolean mouseCentered = false;
+	protected int centerMouseX = 400;
+	protected int centerMouseY = 300;
+	protected int minMove = 1;
+	protected int maxMove = 200;
 	
 	protected boolean orbitMode = false;
 	
@@ -35,7 +38,7 @@ public class CameraController {
 	 * 
 	 * @param et  time elapsed since previous frame
 	 */
-	public void update(double et) {
+	public void update(double et) {		
 		Vector3 motion = new Vector3();
 		Vector3 rotation = new Vector3();
 		
@@ -52,19 +55,46 @@ public class CameraController {
 		if(Keyboard.isKeyDown(Keyboard.KEY_UP)) { rotation.add(1, 0, 0); }
 		if(Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) { rotation.add(0, -1, 0); }
 		if(Keyboard.isKeyDown(Keyboard.KEY_LEFT)) { rotation.add(0, 1, 0); }
-		
-		if(Keyboard.isKeyDown(Keyboard.KEY_O)) { orbitMode = true; } 
-		if(Keyboard.isKeyDown(Keyboard.KEY_F)) { orbitMode = false; } 
-		
-		boolean thisFrameButtonDown = Mouse.isButtonDown(0) && !(Keyboard.isKeyDown(Keyboard.KEY_LCONTROL) || Keyboard.isKeyDown(Keyboard.KEY_RCONTROL));
-		int thisMouseX = Mouse.getX(), thisMouseY = Mouse.getY();
-		if (thisFrameButtonDown && prevFrameButtonDown) {
-			rotation.add(0, -0.1f * (thisMouseX - prevMouseX), 0);
-			rotation.add(0.1f * (thisMouseY - prevMouseY), 0, 0);
+//		
+//		if(Keyboard.isKeyDown(Keyboard.KEY_O)) { orbitMode = true; } 
+//		if(Keyboard.isKeyDown(Keyboard.KEY_F)) { orbitMode = false; } 
+
+		if (!mouseCentered) {
+			Mouse.setCursorPosition(centerMouseX,centerMouseY);
+			mouseCentered = true;
 		}
-		prevFrameButtonDown = thisFrameButtonDown;
-		prevMouseX = thisMouseX;
-		prevMouseY = thisMouseY;
+		int moveX = Mouse.getX() - centerMouseX, moveY = (Mouse.getY() - centerMouseY);
+		int move = Math.abs(moveX) > Math.abs(moveY) ? 0 : 1; 	// 0 is X, 1 is Y
+		switch (move) {
+		case 0:
+			if (Math.abs(moveX) < maxMove && Math.abs(moveX) > minMove) {
+//				if (moveX > 0) {
+//						rotation.add(0, -1, 0);
+//				} else {
+//						rotation.add(0, 1, 0);
+//				}
+				int sign = moveX / Math.abs(moveX);
+				for (int i = 0; i < Math.abs(moveY); i++) {
+					rotation.add(0,-1f * sign, 0);
+				}
+				Mouse.setCursorPosition(centerMouseX,centerMouseY);
+			}
+			break;
+		case 1:
+			if (Math.abs(moveY) < maxMove && Math.abs(moveY) > minMove) {
+//				if (moveY > 0) {
+//						rotation.add(1, 0, 0);
+//				} else {
+//						rotation.add(-1, 0, 0);
+//				}
+				int sign = moveY / Math.abs(moveY);
+				for (int i = 0; i < Math.abs(moveY); i++) {
+					rotation.add(.5f * sign, 0, 0);
+				}
+				Mouse.setCursorPosition(centerMouseX,centerMouseY);
+			}
+			break;
+		}
 		
 		RenderObject parent = rEnv.findObject(scene.objects.get(camera.sceneObject.parent));
 		Matrix4 pMat = parent == null ? new Matrix4() : parent.mWorldTransform;

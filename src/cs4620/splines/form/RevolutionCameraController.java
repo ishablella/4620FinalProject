@@ -44,13 +44,14 @@ public class RevolutionCameraController extends CameraController{
 
 		boolean thisFrameButtonDown = Mouse.isButtonDown(0) && !(Keyboard.isKeyDown(Keyboard.KEY_LCONTROL) || Keyboard.isKeyDown(Keyboard.KEY_RCONTROL));
 		int thisMouseX = Mouse.getX(), thisMouseY = Mouse.getY();
-		if (thisFrameButtonDown && prevFrameButtonDown && this.revolution.clickStartedHere) {
-			rotation.add(0, -0.1f * (thisMouseX - prevMouseX), 0);
-			rotation.add(0.1f * (thisMouseY - prevMouseY), 0, 0);
+//		if (thisFrameButtonDown && prevFrameButtonDown && this.revolution.clickStartedHere) {
+		if (thisFrameButtonDown &&  this.revolution.clickStartedHere) {		
+//			rotation.add(0, -0.1sf * (thisMouseX - prevMouseX), 0);
+//			rotation.add(0.1f * (thisMouseY - prevMouseY), 0, 0);
 		}
-		prevFrameButtonDown = thisFrameButtonDown;
-		prevMouseX = thisMouseX;
-		prevMouseY = thisMouseY;
+//		prevFrameButtonDown = thisFrameButtonDown;
+//		prevMouseX = thisMouseX;
+//		prevMouseY = thisMouseY;
 
 		RenderObject parent = rEnv.findObject(scene.objects.get(camera.sceneObject.parent));
 		Matrix4 pMat = parent == null ? new Matrix4() : parent.mWorldTransform;
