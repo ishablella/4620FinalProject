@@ -9,12 +9,14 @@ import cs4620.common.Scene;
 import cs4620.common.SceneObject;
 import cs4620.common.event.SceneTransformationEvent;
 import egl.math.Matrix4;
+import egl.math.Matrix3;
 import egl.math.Vector2;
 import egl.math.Vector3;
 import egl.math.Vector3d;
 import cs4620.common.Projectile;
 import cs4620.common.SceneLight;
 import cs4620.splines.CatmullRom;
+
 public class CameraController {
 	protected final Scene scene;
 	public RenderCamera camera;
@@ -30,13 +32,18 @@ public class CameraController {
 	protected int maxMove = 200;
 
 	protected Projectile fling = new Projectile("Lamp1");
-
+	protected Projectile bun1 = new Projectile("bun1");
+	protected Projectile bun2 = new Projectile("bun2");
+	protected Projectile bun3 = new Projectile("bun3");
+	protected Projectile bun4 = new Projectile("bun4");
+	protected Projectile bun5 = new Projectile("bun5");
+	protected int activeBun = 1;
 	protected boolean orbitMode = false;
 
 	private float step = .1f;
 	private float speed = 1;
 	private int pathno = -1;
-	private Vector2 start = new Vector2(8,7);
+	private Vector2 start = new Vector2(8, 7);
 	private Vector2 pos = start;
 
 	public CameraController(Scene s, RenderEnvironment re, RenderCamera c) {
@@ -62,26 +69,57 @@ public class CameraController {
 		Vector3 motion = new Vector3();
 		Vector3 rotation = new Vector3();
 
-//		if (Keyboard.isKeyDown(Keyboard.KEY_W)) { motion.add(0, 0, -1); }
-//		if (Keyboard.isKeyDown(Keyboard.KEY_S)) { motion.add(0, 0, 1); }
-//		if (Keyboard.isKeyDown(Keyboard.KEY_A)) { motion.add(-1, 0, 0); }
-//		if (Keyboard.isKeyDown(Keyboard.KEY_D)) { motion.add(1, 0, 0); }
+		// if (Keyboard.isKeyDown(Keyboard.KEY_W)) { motion.add(0, 0, -1); }
+		// if (Keyboard.isKeyDown(Keyboard.KEY_S)) { motion.add(0, 0, 1); }
+		// if (Keyboard.isKeyDown(Keyboard.KEY_A)) { motion.add(-1, 0, 0); }
+		// if (Keyboard.isKeyDown(Keyboard.KEY_D)) { motion.add(1, 0, 0); }
 
-		if (Keyboard.isKeyDown(Keyboard.KEY_DOWN)) { rotation.add(0.5f, 0, 0); }
-		if (Keyboard.isKeyDown(Keyboard.KEY_UP)) { rotation.add(-0.5f, 0, 0); }
-		if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) { rotation.add(0, -0.5f, 0); }
-		if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)) { rotation.add(0, 0.5f, 0); }
-
-		if (Keyboard.isKeyDown(Keyboard.KEY_SPACE) && pathno < 0) { pathno++; }
-		else if (Keyboard.isKeyDown(Keyboard.KEY_SPACE)) { speed = 5; }
-		else { speed = 1; }
-		
-		if (Keyboard.isKeyDown(Keyboard.KEY_Q)) { 
-			fling.activate(camera.mWorldTransform.getZ().clone().normalize().negate());
+		if (Keyboard.isKeyDown(Keyboard.KEY_DOWN)) {
+			rotation.add(-0.5f, 0, 0);
+		}
+		if (Keyboard.isKeyDown(Keyboard.KEY_UP)) {
+			rotation.add(0.5f, 0, 0);
+		}
+		if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {
+			rotation.add(0, -0.5f, 0);
+		}
+		if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
+			rotation.add(0, 0.5f, 0);
 		}
 
-		boolean thisFrameButtonDown = Mouse.isButtonDown(0) && !(Keyboard.isKeyDown(Keyboard.KEY_LCONTROL) || 
-				Keyboard.isKeyDown(Keyboard.KEY_RCONTROL));
+		if (Keyboard.isKeyDown(Keyboard.KEY_SPACE) && pathno < 0) {
+			pathno++;
+		} else if (Keyboard.isKeyDown(Keyboard.KEY_SPACE)) {
+			speed = 5;
+		} else {
+			speed = 1;
+		}
+
+		if (Keyboard.isKeyDown(Keyboard.KEY_Q)) {
+			fling.activate(camera.mWorldTransform.getZ().clone().normalize().negate());
+		}
+		if (Keyboard.isKeyDown(Keyboard.KEY_E)) {
+			switch (activeBun){
+			case 1:
+				bun1.activate(camera.mWorldTransform.getZ().clone().normalize().negate());
+				break;
+			case 2:
+				bun2.activate(camera.mWorldTransform.getZ().clone().normalize().negate());
+				break;
+			case 3:
+				bun3.activate(camera.mWorldTransform.getZ().clone().normalize().negate());
+				break;
+			case 4:
+				bun4.activate(camera.mWorldTransform.getZ().clone().normalize().negate());
+				break;
+			case 5:
+				bun5.activate(camera.mWorldTransform.getZ().clone().normalize().negate());
+				break;
+			}
+		}
+
+		boolean thisFrameButtonDown = Mouse.isButtonDown(0)
+				&& !(Keyboard.isKeyDown(Keyboard.KEY_LCONTROL) || Keyboard.isKeyDown(Keyboard.KEY_RCONTROL));
 
 		int thisMouseX = Mouse.getX(), thisMouseY = Mouse.getY();
 		if (thisFrameButtonDown && prevFrameButtonDown) {
@@ -92,84 +130,64 @@ public class CameraController {
 		prevMouseX = thisMouseX;
 		prevMouseY = thisMouseY;
 
-//		if (!mouseCentered) {
-//			Mouse.setCursorPosition(centerMouseX, centerMouseY);
-//			mouseCentered = true;
-//		} else {
-//			int moveX = Mouse.getX() - centerMouseX, moveY = (Mouse.getY() - centerMouseY);
-//			int move = Math.abs(moveX) > Math.abs(moveY) ? 0 : 1; // 0 is X, 1
-//			// is Y
-//			switch (move) {
-//			case 0:
-//				if (Math.abs(moveX) < maxMove && Math.abs(moveX) > minMove) {
-//					// if (moveX > 0) {
-//					// rotation.add(0, -1, 0);
-//					// } else {
-//					// rotation.add(0, 1, 0);
-//				}
-//				int sign = moveX / Math.abs(moveX);
-//				for (int i = 0; i < Math.abs(moveY); i++) {
-//					rotation.add(0,0.1f*-sign, 0);
-//				}
-//				//Mouse.setCursorPosition(centerMouseX, centerMouseY);
-//				mouseCentered = false;
-//			}
-//			break;
-//		case 1:
-//			if (Math.abs(moveY) < maxMove && Math.abs(moveY) > minMove) {
-//				// if (moveY > 0) {
-//				// rotation.add(1, 0, 0);
-//				// } else {
-//				// rotation.add(-1, 0, 0);
-//				// }
-//				int sign = moveY / Math.abs(moveY);
-//				for (int i = 0; i < Math.abs(moveY); i++) {
-//					rotation.add(0.1f *sign, 0, 0);
-//				}
-//				//Mouse.setCursorPosition(centerMouseX, centerMouseY);
-//				mouseCentered = false;
-//			}
-//			break;
-//		}
-
 		switch (pathno) {
 		case 0:
-			if (pos.x <= -6) { pathno++; } 
-			else { motion.add(-step, 0, 0); }
+			if (pos.x <= -6) {
+				pathno++;
+			} else {
+				motion.add(-step, 0, 0);
+			}
 			break;
 		case 1:
-			if (pos.y <= -7) { pathno++; } 
-			else { motion.add(0, 0, -step); }
+			if (pos.y <= -7) {
+				pathno++;
+			} else {
+				motion.add(0, 0, -step);
+			}
 			break;
 		case 2:
-			if (pos.y >= -3 || pos.x >= -4) { pathno++; } 
-			else { 
+			if (pos.y >= -3 || pos.x >= -4) {
+				pathno++;
+			} else {
 				motion.add(step, 0, 0);
 				motion.add(0, 0, step);
 			}
 			break;
 		case 3:
-			if (pos.y <= -7) { pathno++; }
-			else { 
+			if (pos.y <= -7) {
+				pathno++;
+			} else {
 				motion.add(step, 0, 0);
 				motion.add(0, 0, -step);
 			}
 			break;
 		case 4:
-			if (pos.x >= 5) { pathno++; } 
-			else { motion.add(step, 0, 0); }
+			if (pos.x >= 5) {
+				pathno++;
+			} else {
+				motion.add(step, 0, 0);
+			}
 			break;
 		case 5:
-			if (pos.y >= -1) { pathno++; } 
-			else { motion.add(0, 0, step); }
+			if (pos.y >= -1) {
+				pathno++;
+			} else {
+				motion.add(0, 0, step);
+			}
 			break;
 		case 6:
-			if (pos.x <= 3) { pathno++; } 
-			else { motion.add(-step, 0, 0); }
+			if (pos.x <= 3) {
+				pathno++;
+			} else {
+				motion.add(-step, 0, 0);
+			}
 			break;
 		case 7:
-			if (pos.y >= 4) { pathno++; } 
-			else { motion.add(0, 0, step); }
+			if (pos.y >= 4) {
+				pathno++;
+			} else {
+				motion.add(0, step/4.8f, step);
+			}
 			break;
 		}
 
@@ -185,6 +203,12 @@ public class CameraController {
 			rotate(pMat, camera.sceneObject.transformation, rotation);
 		}
 		shoot(fling);
+
+		toss(bun1);
+		toss(bun2);
+		toss(bun3);
+		toss(bun4);
+		toss(bun5);
 		scene.sendEvent(new SceneTransformationEvent(camera.sceneObject));
 	}
 
@@ -248,30 +272,107 @@ public class CameraController {
 
 		// SOLUTION END
 	}
-	protected void shoot(Projectile P){
-		//if P is active: set intensity and update position
-		if (P.isActive()){
-			if (scene.objects.get(P.getLink()) != null){
+
+	protected void shoot(Projectile P) {
+		// if P is active: set intensity and update position
+		if (P.isActive()) {
+			if (scene.objects.get(P.getLink()) != null) {
 				SceneObject linked = scene.objects.get(P.getLink());
-				//if the age is 0, set the mesh position to just above the camera
-				if (P.getAge() == 0){
-					linked.transformation.mulBefore(Matrix4.createTranslation(linked.transformation.getTrans().clone().negate()));
+				// if the age is 0, set the mesh position to just above the
+				// camera
+				if (P.getAge() == 0) {
+					linked.transformation
+							.mulBefore(Matrix4.createTranslation(linked.transformation.getTrans().clone().negate()));
 					Vector3 offset = camera.mWorldTransform.getX().clone().negate().div(2);
 					offset.add(camera.mWorldTransform.getZ().clone().negate().mul(0.7f));
 					offset.add(camera.mWorldTransform.getY().clone().negate().mul(0.2f));
-					linked.transformation.mulBefore(Matrix4.createTranslation(camera.mWorldTransform.getTrans().clone().add(offset)));
+					linked.transformation.mulBefore(
+							Matrix4.createTranslation(camera.mWorldTransform.getTrans().clone().add(offset)));
 				}
-				if (scene.objects.get("Light1") != null){
-					((SceneLight) scene.objects.get("Light1")).setIntensity(new Vector3d(-0.8/100.0*P.getAge() +1));
+				if (scene.objects.get("Light1") != null) {
+					((SceneLight) scene.objects.get("Light1"))
+							.setIntensity(new Vector3d(-0.8 / 100.0 * P.getAge() + 1));
 				}
 				scene.objects.get(P.getLink()).transformation.mulBefore(Matrix4.createTranslation(P.getDirection()));
 				P.age();
+				if (linked.transformation.getTrans().y < 0.1){
+					P.kill();
+				}
 			}
 		}
-		//if P is not active: set intensity to zero and hide the mesh
-		else{
-			if (scene.objects.get("Light1") != null){
+		// if P is not active: set intensity to zero and hide the mesh
+		else {
+			if (scene.objects.get("Light1") != null) {
 				((SceneLight) scene.objects.get("Light1")).setIntensity(new Vector3d(.2));
+			}
+		}
+	}
+
+	protected void toss(Projectile P) {
+		// if P is active: set intensity and update position
+		if (scene.objects.get(P.getLink()) != null) {
+			SceneObject linked = scene.objects.get(P.getLink());
+			String light = null;
+			switch (P.getLink()){
+			case "bun1":
+				light = "disco1";
+				break;
+			case "bun2":
+				light = "disco2";
+				break;
+			case "bun3":
+				light = "disco3";
+				break;
+			case "bun4":
+				light = "disco4";
+				break;
+			case "bun5":
+				light = "disco5";
+				break;				
+			
+			}
+
+			if (P.isActive()) {
+
+				// if the age is 0, set the mesh position to just above the
+				// camera
+				if (P.getAge() == 0) {
+					linked.transformation
+							.mulBefore(Matrix4.createTranslation(linked.transformation.getTrans().clone().negate()));
+					Vector3 offset = camera.mWorldTransform.getX().clone().div(3);
+					offset.add(camera.mWorldTransform.getZ().clone().negate().mul(0.7f));
+					offset.add(camera.mWorldTransform.getY().clone().negate().mul(0.2f));
+					Matrix4 newTrans = new Matrix4(linked.transformation.getAxes());
+					newTrans.mulAfter(Matrix4.createTranslation(camera.mWorldTransform.getTrans().add(offset)));
+					linked.transformation.set(newTrans);
+				}
+				if(P.getAge() == 3){
+					activeBun+=1;
+					if (activeBun == 6){
+						activeBun = 1;
+					}
+				}
+
+				if (scene.objects.get(light) != null) {
+					((SceneLight) scene.objects.get(light))
+							.setIntensity(new Vector3d(-0.8 / 100.0 * P.getAge() + 1));
+				}
+				Vector3 deltaV = new Vector3(0);
+				if (P.getAge() > 0) {
+					deltaV = new Vector3(0, -1, 0).mul((P.getAge() - 15) / 40f);
+				}
+				scene.objects.get(P.getLink()).transformation
+						.mulBefore(Matrix4.createTranslation(P.getDirection().add(deltaV)));
+				P.age();
+				if (linked.transformation.getTrans().y < 0.1){
+					P.kill();
+				}
+			}
+			// if P is not active: set intensity to low and hide the mesh
+			else {
+				if (scene.objects.get(light) != null) {
+					((SceneLight) scene.objects.get(light)).setIntensity(new Vector3d(0));
+				}
 			}
 		}
 	}

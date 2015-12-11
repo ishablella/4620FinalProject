@@ -216,35 +216,35 @@
 		<name>Wall3L1</name>
 		<data>
 			<mesh>Wall3L1.obj</mesh>
-			<material>WallMat</material>
+			<material>FireMat</material>
 		</data>
 	</object>
 	<object>
 		<name>Wall3L2</name>
 		<data>
 			<mesh>Wall3L2.obj</mesh>
-			<material>WallMat</material>
+			<material>FireMat</material>
 		</data>
 	</object>
 	<object>
 		<name>Wall3L3</name>
 		<data>
 			<mesh>Wall3L3.obj</mesh>
-			<material>WallMat</material>
+			<material>FireMat</material>
 		</data>
 	</object>
 	<object>
 		<name>Wall3R1</name>
 		<data>
 			<mesh>Wall3R1.obj</mesh>
-			<material>WallMat</material>
+			<material>FireMat</material>
 		</data>
 	</object>
 	<object>
 		<name>Wall3R2</name>
 		<data>
 			<mesh>Wall3R2.obj</mesh>
-			<material>WallMat</material>
+			<material>FireMat</material>
 		</data>
 	</object>		
 	<object>
@@ -371,7 +371,20 @@
 			<translation>8.21 0 -2.631</translation>
 		</data>
 	</object>
-
+	<object>
+		<name>Rocks</name>
+		<data>
+			<mesh>Rocks.obj</mesh>
+			<material>EarthMaterial</material>
+		</data>
+	</object>
+	<object>
+		<name>AnotherBench</name>
+		<data>
+			<mesh>AnotherBench.obj</mesh>
+			<material>LampMat</material>
+		</data>
+	</object>
     
 
   	<mesh>
@@ -553,9 +566,25 @@
 		<data>
 			<file>data/meshes/bench_moved.obj</file>
 		</data>
+	</mesh>
+  	<mesh>
+		<name>AnotherBench.obj</name>
+		<data>
+			<file>data/meshes/AnotherBench.obj</file>
+		</data>
+	</mesh>		
+  	<mesh>
+		<name>bunny</name>
+		<data>
+			<file>data/meshes/bunny256.obj</file>
+		</data>
 	</mesh>	
-	
-	
+  	<mesh>
+		<name>Rocks.obj</name>
+		<data>
+			<file>data/meshes/Rocks.obj</file>
+		</data>
+	</mesh>		
 	
 	
 	
@@ -601,6 +630,46 @@
 		</data>
 	</object>
 	<object>
+		<name>bun1</name>
+		<data>
+			<mesh>bunny</mesh>
+			<scale>0.1 0.1 0.1</scale>
+			<material>Ambient</material>
+		</data>
+	</object>
+	<object>
+		<name>bun2</name>
+		<data>
+			<mesh>bunny</mesh>
+			<scale>0.1 0.1 0.1</scale>
+			<material>Ambient</material>
+		</data>
+	</object>
+	<object>
+		<name>bun3</name>
+		<data>
+			<mesh>bunny</mesh>
+			<scale>0.1 0.1 0.1</scale>
+			<material>Ambient</material>
+		</data>
+	</object>
+	<object>
+		<name>bun4</name>
+		<data>
+			<mesh>bunny</mesh>
+			<scale>0.1 0.1 0.1</scale>
+			<material>Ambient</material>
+		</data>
+	</object>
+	<object>
+		<name>bun5</name>
+		<data>
+			<mesh>bunny</mesh>
+			<scale>0.1 0.1 0.1</scale>
+			<material>Ambient</material>
+		</data>
+	</object>
+	<object>
 		<name>Light1</name>
 		<data type="SceneLight">
 			<parent>Lamp1</parent>
@@ -631,6 +700,46 @@
 		</data>
 	</object>
 	<object>
+		<name>Disco1</name>
+		<data type="SceneLight">
+			<parent>bun1</parent>
+			<translation>0 0 0</translation>
+			<intensity>.7 0 .7</intensity>
+		</data>
+	</object>
+	<object>
+		<name>Disco2</name>
+		<data type="SceneLight">
+			<parent>bun2</parent>
+			<translation>0 0 0</translation>
+			<intensity>0 .7 .7</intensity>
+		</data>
+	</object>
+	<object>
+		<name>Disco3</name>
+		<data type="SceneLight">
+			<parent>bun3</parent>
+			<translation>0 0 0</translation>
+			<intensity>.7 .7 0</intensity>
+		</data>
+	</object>
+	<object>
+		<name>Disco4</name>
+		<data type="SceneLight">
+			<parent>bun4</parent>
+			<translation>0 0 0</translation>
+			<intensity>.7 .3 .3</intensity>
+		</data>
+	</object>
+	<object>
+		<name>Disco5</name>
+		<data type="SceneLight">
+			<parent>bun5</parent>
+			<translation>0 0 0</translation>
+			<intensity>.3 .7 .3</intensity>
+		</data>
+	</object>
+	<object>
 		<name>AmbientLight</name>
 		<data type="SceneLight">
 			<intensity>0.05 0.05 0.05</intensity>
@@ -644,7 +753,7 @@
             <perspective>0.01 0.01</perspective>
             <exposure>1</exposure>
             <rotation>0 90 0</rotation>
-            <translation>9 0.5 7</translation>
+            <translation>9 0.6 7</translation>
         </data>
     </object>
 </scene>

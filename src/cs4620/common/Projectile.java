@@ -18,6 +18,7 @@ public class Projectile {
 	}
 	public void kill(){
 		isActive = false;
+		life = maxlife;
 	}
 	public Vector3 getDirection() {
 		return dir.clone();

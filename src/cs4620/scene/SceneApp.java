@@ -23,7 +23,7 @@ public class SceneApp extends MainGame {
 	public Scene scene;
 	
 	public SceneApp() {
-		super("CS 4620 Mesh Workspace", 800, 600);
+		super("CS 4620 Mesh Workspace", 1000, 750);
 		
 		scene = new Scene();
 		otherWindow = new ControlWindow(this);

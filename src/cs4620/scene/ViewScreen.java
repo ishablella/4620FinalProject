@@ -42,8 +42,8 @@ public class ViewScreen extends GameScreen {
 	boolean pick;
 	int prevCamScroll = 0;
 	boolean wasPickPressedLast = false;
-	boolean showGrid = true;
-	boolean useTimelineMouseOver = true;
+	boolean showGrid = false;
+	boolean useTimelineMouseOver = false;
 	
 	SceneApp app;
 	ScenePanel sceneTree;
@@ -53,10 +53,10 @@ public class ViewScreen extends GameScreen {
 	
 	RenderController rController;
 	CameraController camController;
-	ManipController manipController;
-	GridRenderer gridRenderer;
+	//ManipController manipController;
+	//GridRenderer gridRenderer;
 	boolean updateAnimation;
-	Animator animator;
+	//Animator animator;
 	TimelineViewer animTimeViewer = new TimelineViewer();
 	
 	@Override
@@ -129,24 +129,24 @@ public class ViewScreen extends GameScreen {
 				updateAnimation = true;
 				break;
 			case Keyboard.KEY_N:
-				selected = manipController.getCurrentObject();
-				if(selected != null) {
-					rController.animEngine.addKeyframe(selected.sceneObject.getID().name);
-					updateAnimation = true;
-				}
+//				selected = manipController.getCurrentObject();
+//				if(selected != null) {
+//					rController.animEngine.addKeyframe(selected.sceneObject.getID().name);
+//					updateAnimation = true;
+//				}
 				break;
 			case Keyboard.KEY_M:
-				selected = manipController.getCurrentObject();
-				if(selected != null) {
-					rController.animEngine.removeKeyframe(selected.sceneObject.getID().name);
-					updateAnimation = true;
-				}
+//				selected = manipController.getCurrentObject();
+//				if(selected != null) {
+//					rController.animEngine.removeKeyframe(selected.sceneObject.getID().name);
+//					updateAnimation = true;
+//				}
 				break;
 			case Keyboard.KEY_BACKSLASH:
-				animator.togglePlaying();
+//				animator.togglePlaying();
 				break;
 			case Keyboard.KEY_APOSTROPHE:
-				useTimelineMouseOver = !useTimelineMouseOver;
+				//useTimelineMouseOver = !useTimelineMouseOver;
 				break;
 			default:
 				break;
@@ -162,12 +162,12 @@ public class ViewScreen extends GameScreen {
 		renderer.buildPasses(rController.env.root);
 		camController = new CameraController(app.scene, rController.env, null);
 		createCamController();
-		manipController = new ManipController(rController.env, app.scene, app.otherWindow);
-		gridRenderer = new GridRenderer();
-		animator = new Animator();
+		//manipController = new ManipController(rController.env, app.scene, app.otherWindow);
+		//gridRenderer = new GridRenderer();
+		//animator = new Animator();
 		
 		KeyboardEventDispatcher.OnKeyPressed.add(onKeyPress);
-		manipController.hook();
+		//manipController.hook();
 		
 		Object tab = app.otherWindow.tabs.get("Object");
 		if(tab != null) sceneTree = (ScenePanel)tab;
@@ -188,7 +188,7 @@ public class ViewScreen extends GameScreen {
 		KeyboardEventDispatcher.OnKeyPressed.remove(onKeyPress);
 		rController.dispose();
 		animTimeViewer.dispose();
-		manipController.dispose();
+		//manipController.dispose();
 	}
 
 	private void createCamController() {
@@ -218,7 +218,7 @@ public class ViewScreen extends GameScreen {
 		
 		if(camController.camera != null) {
 			camController.update(gameTime.elapsed);
-			manipController.checkMouse(Mouse.getX(), Mouse.getY(), camController.camera);
+			//manipController.checkMouse(Mouse.getX(), Mouse.getY(), camController.camera);
 		}
 		
 		if(Mouse.isButtonDown(1) || Mouse.isButtonDown(0) && (Keyboard.isKeyDown(Keyboard.KEY_LCONTROL) || Keyboard.isKeyDown(Keyboard.KEY_RCONTROL))) {
@@ -233,15 +233,15 @@ public class ViewScreen extends GameScreen {
 		}
 		
 		// Update Animation
-		int frames = animator.update((float)gameTime.elapsed);
-		if(frames > 0) {
-			rController.animEngine.advance(frames);
-			updateAnimation = true;
-		}
-		if(updateAnimation) {
-			rController.animEngine.updateTransformations();
-			updateAnimation = false;
-		}
+	//	int frames = animator.update((float)gameTime.elapsed);
+//		if(frames > 0) {
+//			rController.animEngine.advance(frames);
+//			updateAnimation = true;
+//		}
+//		if(updateAnimation) {
+//			rController.animEngine.updateTransformations();
+//			updateAnimation = false;
+//		}
 	}
 	
 	@Override
@@ -250,9 +250,9 @@ public class ViewScreen extends GameScreen {
 		
 		rController.update(renderer, camController);
 
-		if(pick && camController.camera != null) {
-			manipController.checkPicking(renderer, camController.camera, Mouse.getX(), Mouse.getY());
-		}
+//		if(pick && camController.camera != null) {
+//			manipController.checkPicking(renderer, camController.camera, Mouse.getX(), Mouse.getY());
+//		}
 		
 		Vector3 bg = app.scene.background;
 		GL11.glClearColor(bg.x, bg.y, bg.z, 0);
@@ -261,17 +261,17 @@ public class ViewScreen extends GameScreen {
 		
 		if(camController.camera != null){
 			renderer.draw(camController.camera, rController.env.lights, (float) gameTime.total);
-			manipController.draw(camController.camera);
-			if (showGrid)
-				gridRenderer.draw(camController.camera);
+//			manipController.draw(camController.camera);
+//			if (showGrid)
+//				gridRenderer.draw(camController.camera);
 		}
 		
-		RenderObject co = manipController.getCurrentObject();
-		animTimeViewer.draw(
-				game.getWidth(), game.getHeight(),
-				rController.animEngine,
-				co == null ? "" : co.sceneObject.getID().name,
-				Mouse.getY() < 40 || !useTimelineMouseOver, (float)gameTime.elapsed);
+//		RenderObject co = manipController.getCurrentObject();
+//		animTimeViewer.draw(
+//				game.getWidth(), game.getHeight(),
+//				rController.animEngine,
+//				co == null ? "" : co.sceneObject.getID().name,
+//				Mouse.getY() < 40 || !useTimelineMouseOver, (float)gameTime.elapsed);
 		
         GLError.get("draw");
 	}
