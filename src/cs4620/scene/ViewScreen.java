@@ -42,7 +42,7 @@ public class ViewScreen extends GameScreen {
 	boolean pick;
 	int prevCamScroll = 0;
 	boolean wasPickPressedLast = false;
-	boolean showGrid = false;
+	boolean showGrid = true;
 	boolean useTimelineMouseOver = true;
 	
 	SceneApp app;

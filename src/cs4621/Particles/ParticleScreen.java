@@ -1,5 +1,6 @@
 package cs4621.Particles;
 
+import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
@@ -458,21 +459,45 @@ public final class ParticleScreen extends GameScreen{
             }
             
             if(showVelocities) {
-                // TODO#PPA3 SOLUTION START:
+                // SOLUTION START:
                 // Populate the vertex buffer to display velocities for each particle.
                 // 1.) Disable depth testing so that you can see the lines no matter what. 
                 //     Don't forget to re-enable this at the end!
+            	GL11.glDisable(GL11.GL_DEPTH_TEST);
+            	
                 // 2.) Put the particle position and the particle position + (velocity scaled
                 //     by some constant amount) into the float buffer for velocities (vBufVelocities).
                 //     Don't forget to rewind at the appropriate locations!
+        		Vector3 pos = particlePosition;
+        		vBufVelocities.put(pos.x);
+            	vBufVelocities.put(pos.y);
+           		vBufVelocities.put(pos.z);
+           		Vector3 disp = pos.clone().add(p.getVelocity().clone().div(10));
+           		vBufVelocities.put(disp.x);
+           		vBufVelocities.put(disp.y);
+           		vBufVelocities.put(disp.z);            		
+
                 // 3.) Set the appropriate GLBuffer (velocityVerts) using vBufVelocities
+            	velocityVerts.setDataInitial((FloatBuffer) vBufVelocities.rewind());
+            		
                 // 4.) Use the program (linesProgram and bind the attributes, uniforms and the  
                 //     appropriate index buffer (ibVelocities).
+            	linesProgram.use();
+            		
+                GLUniform.setST(linesProgram.getUniform("mModelViewProjection"), mViewProjection, false);
+                velocityVerts.useAsAttrib(linesSI);
+            	
                 // 5.) Bind the GLBuffer to the appropriate shader interface (linesSI) and draw
                 //     the velocity lines.
-                
+            	ibVelocities.bind();
+            	GL11.glDrawElements(PrimitiveType.Lines, 2, GLType.UnsignedInt, 0);
+            	ibVelocities.unbind();
+            	
+            	GLProgram.unuse();
+            	GL11.glEnable(GL11.GL_DEPTH_TEST);
+
                 // SOLUTION END
-            }
+            } 
         }
     }
     

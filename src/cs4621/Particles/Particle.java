@@ -118,13 +118,17 @@ public class Particle extends Mesh {
      * @param dt Time step since the last frame, in seconds.
      */
     public void animate(float dt) {
-        // TODO#PPA3 SOLUTION START
+        // SOLUTION START
         // Update the particle's position given the forces acting on the particle this frame.
         // 1.) Obtain the acceleration.
+    	Vector3 accel = new Vector3(this.mForcesThisFrame).div(this.mMass);
         // 2.) Update the velocity based on the acceleration.
+    	this.mVelocity.add(accel.clone().mul(dt));
         // 3.) Update the position based on the velocity.
+    	this.mPosition.add(mVelocity.clone().mul(dt));
         // 4.) Update the particle's age.
-
+    	this.mAge += dt;
+    	resetForces();
         // SOLUTION END
     }
 }
